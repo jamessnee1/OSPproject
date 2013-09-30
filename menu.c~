@@ -1,0 +1,121 @@
+/*menu.c*/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <pthread.h>
+#include "main.h"
+
+
+int drawMenu(Mix_Music *music, Mix_Music *music2, Mix_Music *music3, Mix_Music *music4, Mix_Music *music5){
+
+  /*Create variables for each music thread*/
+  pthread_t musthread1, musthread2, musthread3, musthread4, musthread5;
+  int i, input, returnthread1, returnthread2, returnthread3, returnthread4, returnthread5;
+  char charInput[MAX_OPTION_INPUT + EXTRA_SPACES];
+  
+  char *thread1 = "Currently playing music track 1 (Bass)";
+  char *thread2 = "Currently playing music track 2 (String and Melody)";
+  char *thread3 = "Currently playing music track 3 (Piano)";
+  char *thread4 = "Currently playing music track 4 (Percussion)";
+  char *thread5 = "Currently playing music track 1 (All tracks)";
+
+  clearScreen();
+  
+  do{
+    
+   
+    
+    printf("Main Menu\n");
+    printf("---------\n\n");
+    printf("1) Play Music Track 1 (Bass)\n");
+    printf("2) Play Music Track 2 (Strings and Melody)\n");
+    printf("3) Play Music Track 3 (Piano)\n");
+    printf("4) Play Music Track 4 (Percussion)\n");
+    printf("5) Play Music Track 5 (All tracks)\n");
+    printf("6) View current playing threads\n");
+    printf("7) Stop all tracks\n");
+    printf("8) Exit Program\n\n");
+    
+    for (i = 0; i < 10; i++){
+	printf("\n");
+    }
+    
+    printf("Select your option: ");
+
+    /*Join threads here, unsure if it should be implemented elsewhere*/
+    
+    
+    fgets(charInput, MAX_OPTION_INPUT + EXTRA_SPACES, stdin);
+    
+    input = atoi(charInput);
+    
+    /*Switch statement for menu*/
+    switch(input){
+		
+	case 0:				
+	  clearScreen();
+	  printf("Error: Not a valid option! Please try again.\n\n");
+	  break;
+	case 1:
+	  clearScreen();
+	  returnthread1 = pthread_create(&musthread1, NULL, play_music_in_thread, (void *) music);
+	  pthread_join(musthread1, NULL);
+	  break;
+	case 2:
+	  clearScreen();
+	  returnthread2 = pthread_create(&musthread2, NULL, play_music_in_thread, (void *) music2);
+	  pthread_join(musthread2, NULL);
+	  break;
+	case 3:
+	  clearScreen();
+	  returnthread3 = pthread_create(&musthread3, NULL, play_music_in_thread, (void *) music3);
+          pthread_join(musthread3, NULL);
+	  break;
+	case 4:
+	  clearScreen();
+	  returnthread4 = pthread_create(&musthread4, NULL, play_music_in_thread, (void *) music4);
+          pthread_join(musthread4, NULL);
+	  break;
+	case 5:
+          clearScreen();
+ 	  returnthread5 = pthread_create(&musthread5, NULL, play_music_in_thread, (void *) music5);
+	  pthread_join(musthread4, NULL);
+	  break;
+	case 6:
+	  clearScreen();
+	  printf("Option 6 doesn't work right now.\n\n");
+	  break;
+	case 7:
+	   clearScreen();
+	   if(Mix_PlayingMusic() == 1){
+	      Mix_HaltMusic();
+	      printf("All tracks stopped.\n");
+	    }
+	    else {
+	      printf("Error: There is nothing playing!\n");
+	    }
+	  break;
+	case 8:
+	  return EXIT_SUCCESS;
+	  break;	
+	case 9:
+	  clearScreen();
+	  printf("Error: Not a valid option! Please try again.\n\n");
+	  break;
+	default:
+	  printf("Error: Not a valid option! Please try again.\n\n");	
+	  break;
+		
+	}
+
+    
+  }
+  while (input != 8);
+  
+  clearScreen();
+
+  return;
+
+}
+
+
