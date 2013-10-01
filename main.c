@@ -12,6 +12,7 @@
 int main(int argc, char *argv[]){
 
   int lines;
+  int c;
   
   /*Create music variables*/
   Mix_Chunk *intro = NULL;
@@ -63,10 +64,14 @@ int main(int argc, char *argv[]){
   }
   
   printf("Press enter to continue...\n");
-  getchar();
+  c = getchar();
   /*Stop sound effect if still playing*/
   Mix_HaltChannel(-1);
-
+  
+  /*if user doesn't press enter the screen will not advance*/
+  while (c != '\n' && c != EOF){ 
+    c=getchar(); 
+  }
   
   drawMenu(music, music2, music3, music4, music5);
   

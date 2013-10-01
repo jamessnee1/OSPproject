@@ -42,3 +42,7 @@ int drawMenu(Mix_Chunk *music, Mix_Chunk *music2, Mix_Chunk *music3, Mix_Chunk *
 BOOLEAN initMusic(void);
 void *play_music_in_thread(void *music_params);
 void list_active_threads(void);
+
+/* Function prototype for selectOutput(). Prompts user to select an audio 
+output. Returns EXIT_SUCCCESS on success, or EXIT_FAILURE on failure. */
+int selectOutput(void);

@@ -91,7 +91,7 @@ void *play_music_in_thread(void *music_params){
   
   printf("Thread created! Thread ID: %ld. %s\n",(long int)syscall(224),  param_ptr->musstring);
   /*Play music from music variable and identifier passed in, this will play the music on a certain track*/
-  /*For example, int Mix_PlayChannel (int channel, Mix_Chunk *chunk, int loops);*/
+  /*For example, int Mix_PlayChannel (int channel, Mix_Chunk *chunk, int loops); loops is 0 which means it will play 1 time*/
   Mix_PlayChannel(param_ptr->thread_identifier, param_ptr->music, 0);
 
   /*unlock thread*/
@@ -121,4 +121,35 @@ void list_active_threads(void){
   }
   
 }
+
+/*selectOutput function by Ryan Larke*/
+int selectOutput(void){
+   char charInput[MAX_OPTION_INPUT + EXTRA_SPACES];
+   int input;
+
+   printf("Select audio output\n");
+   printf("---------\n\n");
+   printf("0) HDMI\n");
+   printf("1) 3.5mm socket\n");
+   printf("2) Return to main menu\n");
+   fgets(charInput, MAX_OPTION_INPUT + EXTRA_SPACES, stdin);
+   input = atoi(charInput);
+   if(input==0){
+      system("sudo amixer cset numid=3 2 > /dev/null");
+      printf("Audio output changed to HDMI\n");
+      return EXIT_SUCCESS;
+   }else if(input==1){
+      system("sudo amixer cset numid=3 1 > /dev/null");
+      printf("Audio output changed to 3.5mm\n");
+      return EXIT_SUCCESS;
+   }
+   else if(input==2){
+      return EXIT_SUCCESS;
+   }
+   else{
+      printf("Invalid option. Please try again.\n\n");
+      return EXIT_FAILURE;
+   }
+}
+
 
