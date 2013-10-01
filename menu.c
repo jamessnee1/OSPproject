@@ -3,9 +3,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <unistd.h>
 #include "main.h"
 #include "SDL/SDL.h"
 #include "SDL/SDL_mixer.h"
+
+/* Function prototype for selectOutput(). Prompts user to select an audio 
+output. Returns EXIT_SUCCCESS on success, or EXIT_FAILURE on failure. */
+int selectOutput(void);
 
 
 int drawMenu(Mix_Chunk *music, Mix_Chunk *music2, Mix_Chunk *music3, Mix_Chunk *music4, Mix_Chunk *music5){
@@ -45,6 +50,7 @@ int drawMenu(Mix_Chunk *music, Mix_Chunk *music2, Mix_Chunk *music3, Mix_Chunk *
     printf("---------\n\n");
     
     /*If the specific channel is playing, print the appropriate prompt*/
+    printf("0) Select Audio Output\n");
     
       if (Mix_Playing(1) == 0){
 	printf("1) Play Music Track 1 (Bass)\n");
@@ -100,8 +106,12 @@ int drawMenu(Mix_Chunk *music, Mix_Chunk *music2, Mix_Chunk *music3, Mix_Chunk *
 		
 	case 0:				
 	  
-	  printf("Error: Not a valid option! Please try again.\n\n");
+	  /* Repeatedly calls the selectOutput function until the user enters a
+     valid option */
+     while(selectOutput()==EXIT_FAILURE){}
 	  break;
+     
+     
 	case 1:
 	  
 	  /*checks to see if music is playing, else run the code to stop*/
@@ -263,4 +273,32 @@ int drawMenu(Mix_Chunk *music, Mix_Chunk *music2, Mix_Chunk *music3, Mix_Chunk *
 
 }
 
+int selectOutput(void){
+   char charInput[MAX_OPTION_INPUT + EXTRA_SPACES];
+   int input;
+
+   printf("Select audio output\n");
+   printf("---------\n\n");
+   printf("0) HDMI\n");
+   printf("1) 3.5mm socket\n");
+   printf("2) Return to main menu\n");
+   fgets(charInput, MAX_OPTION_INPUT + EXTRA_SPACES, stdin);
+   input = atoi(charInput);
+   if(input==0){
+      system("sudo amixer cset numid=3 2 > /dev/null");
+      printf("Audio output changed to HDMI\n");
+      return EXIT_SUCCESS;
+   }else if(input==1){
+      system("sudo amixer cset numid=3 1 > /dev/null");
+      printf("Audio output changed to 3.5mm\n");
+      return EXIT_SUCCESS;
+   }
+   else if(input==2){
+      return EXIT_SUCCESS;
+   }
+   else{
+      printf("Invalid option. Please try again.\n\n");
+      return EXIT_FAILURE;
+   }
+}
 
