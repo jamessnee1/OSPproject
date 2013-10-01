@@ -50,6 +50,12 @@ int main(int argc, char *argv[]){
   Mix_PlayChannel(-1, intro, 0);
   
   clearScreen();
+  
+  for (lines = 0; lines < 10; lines++){
+    
+    printf("\n");
+    
+  }
 
   printf("                   	  Raspberry Pi Dup-Box v1.0\n");
   printf("                -------------------------------------------\n\n");
@@ -72,6 +78,8 @@ int main(int argc, char *argv[]){
   while (c != '\n' && c != EOF){ 
     c=getchar(); 
   }
+  
+  clearScreen();
   
   drawMenu(music, music2, music3, music4, music5);
   

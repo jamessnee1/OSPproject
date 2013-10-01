@@ -6,17 +6,21 @@
 #include "SDL/SDL.h"
 #include "SDL/SDL_mixer.h"
 
+
 /*create mutex as a global variable*/
 int counter;
 pthread_mutex_t lock;
 
-/*Function to clear the screen*/
+/*Unix function call to clear the screen*/
 void clearScreen(void){
 
-	int i;
+	/*int i;
 	for (i = 0; i < SCREENSIZE; i++){
 		putchar('\n');
-	}
+	}*/
+	
+	system("clear");
+	
 
 }
 

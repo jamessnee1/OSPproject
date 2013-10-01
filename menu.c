@@ -85,7 +85,7 @@ int drawMenu(Mix_Chunk *music, Mix_Chunk *music2, Mix_Chunk *music3, Mix_Chunk *
     printf("8) Stop all tracks\n");
     printf("9) Exit Program\n\n");
     
-    for (i = 0; i < 4; i++){
+    for (i = 0; i < 2; i++){
 	printf("\n");
     }
     
@@ -244,6 +244,7 @@ int drawMenu(Mix_Chunk *music, Mix_Chunk *music2, Mix_Chunk *music3, Mix_Chunk *
 	      Mix_HaltChannel(-1);
 	      /*clear the array of Thread IDs*/
 	      memset(thread_ids, 0, sizeof(int)*THREAD_COUNT);
+	      clearScreen();
 	      printf("All tracks stopped.\n");
 	    }
 	    else {
