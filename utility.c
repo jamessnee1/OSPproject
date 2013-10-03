@@ -13,14 +13,8 @@ pthread_mutex_t lock;
 
 /*Unix function call to clear the screen*/
 void clearScreen(void){
-
-	/*int i;
-	for (i = 0; i < SCREENSIZE; i++){
-		putchar('\n');
-	}*/
 	
 	system("clear");
-	
 
 }
 

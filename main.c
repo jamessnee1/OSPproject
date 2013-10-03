@@ -59,7 +59,7 @@ int main(int argc, char *argv[]){
 
   printf("                   	  Raspberry Pi Dup-Box v1.0\n");
   printf("                -------------------------------------------\n\n");
-  printf("                By James Snee, Bella Pollock and Ryan Larke\n");
+  printf("                By James Snee, Arabella Pollock and Ryan Larke\n");
   printf("		    Uses the SDL and SDL Mixer Libraries\n");
   printf("		     The process ID of this run is: %d\n", getpid());
   

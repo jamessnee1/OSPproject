@@ -43,7 +43,7 @@ int drawMenu(Mix_Chunk *music, Mix_Chunk *music2, Mix_Chunk *music3, Mix_Chunk *
     
    
     
-    printf("Main Menu\n");
+    printf("\nMain Menu\n");
     printf("---------\n\n");
     
     /*If the specific channel is playing, print the appropriate prompt*/
@@ -123,7 +123,6 @@ int drawMenu(Mix_Chunk *music, Mix_Chunk *music2, Mix_Chunk *music3, Mix_Chunk *
 	     
 	     
 	  }else{
-	    
 	    /*Stop channel*/
 	    Mix_HaltChannel(1);
 	    /*clear the TID out of the array*/
