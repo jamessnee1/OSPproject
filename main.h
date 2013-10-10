@@ -44,6 +44,7 @@ BOOLEAN initMusic(void);
 void *play_music_in_thread(void *music_params);
 void list_active_threads(void);
 
+
 /* Function prototype for selectOutput(). Prompts user to select an audio 
 output. Returns EXIT_SUCCCESS on success, or EXIT_FAILURE on failure. */
 int selectOutput(void);

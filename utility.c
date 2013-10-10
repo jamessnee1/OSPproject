@@ -55,6 +55,7 @@ void *play_music_in_thread(void *music_params){
   counter += 1;
 
   int i;
+  int count = 0;
   /*create a new pointer to struct passed in*/
   struct music_params *param_ptr;
   
@@ -91,7 +92,21 @@ void *play_music_in_thread(void *music_params){
   /*Play music from music variable and identifier passed in, this will play the music on a certain track*/
   /*For example, int Mix_PlayChannel (int channel, Mix_Chunk *chunk, int loops); loops is 0 which means it will play 1 time*/
   Mix_PlayChannel(param_ptr->thread_identifier, param_ptr->music, 0);
-
+  
+  /*The following is test timing code, please comment out if not using*/
+  while(Mix_Playing(-1) == 1){
+    
+    printf("%i\n", count);
+ 
+    /**********************************************************************
+      usleep is like sleep,except we can specify time in microseconds
+      Music is 138 BPM, in 4/4 time, 1739 milliseconds 
+      1739000 microseconds per bar / 4 = 434750 gives us the beats per bar
+      *********************************************************************/
+    usleep(434750);
+    count++;
+  }
+  
   /*unlock thread*/
   pthread_mutex_unlock(&lock);
   printf("Thread unlocked!\n");
@@ -149,5 +164,7 @@ int selectOutput(void){
       return EXIT_FAILURE;
    }
 }
+
+
 
 

@@ -1,8 +1,8 @@
 
 
-main:   main.o menu.o utility.o
+pi-dupbox:   main.o menu.o utility.o
 	@echo making all files
-	@gcc -I /usr/include/SDL -o main main.o menu.o utility.o -pthread -lSDL -lSDL_mixer 
+	@gcc -I /usr/include/SDL -o pi-dupbox main.o menu.o utility.o -pthread -lSDL -lSDL_mixer 
 
 main.o: main.c main.h
 	@echo making main.o
