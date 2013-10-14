@@ -94,18 +94,18 @@ void *play_music_in_thread(void *music_params){
   Mix_PlayChannel(param_ptr->thread_identifier, param_ptr->music, 0);
   
   /*The following is test timing code, please comment out if not using*/
-  while(Mix_Playing(-1) == 1){
+  /*while(Mix_Playing(-1) == 1){
     
-    printf("%i\n", count);
+    printf("%i\n", count);*/
  
     /**********************************************************************
       usleep is like sleep,except we can specify time in microseconds
       Music is 138 BPM, in 4/4 time, 1739 milliseconds 
       1739000 microseconds per bar / 4 = 434750 gives us the beats per bar
       *********************************************************************/
-    usleep(434750);
+    /*usleep(434750);
     count++;
-  }
+  }*/
   
   /*unlock thread*/
   pthread_mutex_unlock(&lock);
